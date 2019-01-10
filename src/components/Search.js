@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { withApollo } from 'react-apollo'
-import gpl from 'graphql-tag'
+import gql from 'graphql-tag'
 import Link from './Link'
 
-const FEED_SEARCH_QUERY = gpl`
+const FEED_SEARCH_QUERY = gql`
   query FeedSearchQuery($filter: String!) {
     feed(filter: $filter) {
       links {
