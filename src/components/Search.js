@@ -35,14 +35,22 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <div>
-          Search
+        <div>Search Links</div>
+        <form
+          onSubmit={event => {
+            event.preventDefault()
+            this._executeSearch()
+          }}
+        >
           <input
+            className="mb2 mt2 w-50"
             type="text"
+            placeholder="Search terms..."
             onChange={e => this.setState({ filter: e.target.value })}
           />
-          <button onClick={() => this._executeSearch()}>OK</button>
-        </div>
+          <br />
+          <button type="submit">Search</button>
+        </form>
         {this.state.links.map((link, index) => (
           <Link key={link.id} link={link} index={index} />
         ))}
