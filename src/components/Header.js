@@ -7,8 +7,8 @@ class Header extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
-      <div className="flex pal justify-between nowrap orange">
-        <div className="flex flex-fixed black">
+      <div className="flex pal justify-between nowrap orange header-nav">
+        <div className="flex flex-fixed black header-text">
           <div className="fw7 mr1">Hacker News</div>
           <Link to="/" className="ml1 no-underline black">
             new
@@ -30,7 +30,7 @@ class Header extends Component {
             </div>
           )}
         </div>
-        <div className="flex flex-fixed">
+        <div className="flex flex-fixed header-text">
           {authToken ? (
             <div
               className="ml1 pointer black"
