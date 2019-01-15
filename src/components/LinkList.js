@@ -22,6 +22,7 @@ export const FEED_QUERY = gql`
             id
           }
         }
+        voted
       }
       count
     }
@@ -77,20 +78,32 @@ const NEW_VOTES_SUBSCRIPTION = gql`
 `
 
 class LinkList extends Component {
-  _updateCacheAfterVote = (store, createVote, linkId) => {
+  _getCacheData = store => {
     const isNewPage = this.props.location.pathname.includes('new')
     const page = parseInt(this.props.match.params.page, 10)
-
     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0
     const first = isNewPage ? LINKS_PER_PAGE : 100
     const orderBy = isNewPage ? 'createdAt_DESC' : null
-    const data = store.readQuery({
+    return store.readQuery({
       query: FEED_QUERY,
       variables: { first, skip, orderBy }
     })
+  }
 
+  _updateCacheAfterVote = (store, createVote, linkId) => {
+    const data = this._getCacheData(store)
     const votedLink = data.feed.links.find(link => link.id === linkId)
     votedLink.votes = createVote.link.votes
+    votedLink.voted = true
+    store.writeQuery({ query: FEED_QUERY, data })
+  }
+
+  _updateCacheAfterUnvote = (store, unvote, linkId) => {
+    const data = this._getCacheData(store)
+    const unvotedLink = data.feed.links.find(link => link.id === linkId)
+    unvotedLink.voted = false
+    const deletedVote = unvotedLink.votes.find(vote => vote.id === unvote.id)
+    unvotedLink.votes.splice(deletedVote, 1)
     store.writeQuery({ query: FEED_QUERY, data })
   }
 
@@ -178,6 +191,7 @@ class LinkList extends Component {
                   link={link}
                   index={index + pageIndex}
                   updateStoreAfterVote={this._updateCacheAfterVote}
+                  updateStoreAfterUnvote={this._updateCacheAfterUnvote}
                 />
               ))}
               {isNewPage && (

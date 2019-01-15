@@ -32,7 +32,8 @@ class CreateLink extends Component {
     const { description, url } = this.state
     return (
       <div>
-        <div className="flex flex-column mt3">
+        <div>Submit New Link</div>
+        <div className="flex flex-column mt2">
           <input
             className="mb2"
             value={description}

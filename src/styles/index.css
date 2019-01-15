@@ -1,7 +1,9 @@
 body {
-  margin: 0;
+  margin: 8px;
   padding: 0;
   font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color: #828282;
 }
 
 input {
@@ -17,7 +19,7 @@ input {
 }
 
 .background-gray {
-  background-color: rgb(246,246,239);
+  background-color: rgb(246, 246, 239);
 }
 
 .f11 {
@@ -42,7 +44,33 @@ input {
   max-width: 250px;
 }
 
-a.bland-link {
-  color:inherit;
+a:visited {
+  color: #000000;
   text-decoration: none;
+}
+
+a:link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.header-nav {
+  line-height: 12pt;
+  height: 25px;
+}
+
+.header-text {
+  margin: 4px 4px 0;
+}
+
+.votearrow {
+  width: 10px;
+  height: 10px;
+  border: 0px;
+  margin: 3px 2px 6px;
+  background: url(grayarrow.gif) no-repeat;
+}
+
+.vote-spacer {
+  width: 14px;
 }
